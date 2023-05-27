@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { ShopLayout } from '@/components/layout';
-import { initialData } from '@/database/products';
+import { initialData } from '@/api/database/products';
 import { ProductList } from '@/components/products';
 import { IProducts } from '@/interfaces';
 

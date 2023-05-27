@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Button, Box, Typography, Chip } from '@mui/material';
 
 import { ShopLayout } from '@/components/layout';
-import { initialData } from '@/database/products';
+import { initialData } from '@/api/database/products';
 import { ProductSlideshow, SizeSelector } from '@/components/products';
 import { ItemCounter } from '@/components/ui';
 

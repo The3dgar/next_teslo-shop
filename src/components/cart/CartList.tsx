@@ -11,7 +11,7 @@ import {
   CardActionArea,
   CardMedia,
 } from '@mui/material';
-import { initialData } from '@/database/products';
+import { initialData } from '@/api/database/products';
 import { ItemCounter } from '../ui';
 
 const productsInCart = [

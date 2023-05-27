@@ -10,6 +10,8 @@ export interface IProducts {
   title: string;
   type: ValidTypes;
   gender: 'men' | 'women' | 'kid' | 'unisex';
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type ValidSizes = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
