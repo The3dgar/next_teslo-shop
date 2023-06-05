@@ -16,11 +16,12 @@ interface Props {
 }
 export const ProductCard = ({ product }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const produtImg = useMemo(() => {
     return isHovered
-      ? `products/${product.images[1]}`
-      : `products/${product.images[0]}`;
+      ? `/products/${product.images[1]}`
+      : `/products/${product.images[0]}`;
   }, [isHovered, product.images]);
 
   return (
@@ -31,22 +32,30 @@ export const ProductCard = ({ product }: Props) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       <Card>
-        <Link component={NextLink} href='/product/slug' passHref prefetch={false}>
+        <Link
+          component={NextLink}
+          href={`/product/${product.slug}`}
+          passHref
+          prefetch={false}>
           <CardActionArea>
             <CardMedia
               component='img'
               className='fadeIn'
               image={produtImg}
               alt={product.title}
+              onLoad={() => setIsImageLoaded(true)}
             />
           </CardActionArea>
         </Link>
       </Card>
 
-      <Box sx={{ mt: 1 }} className='fadeIn'>
+      <Box
+        sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }}
+        className='fadeIn'>
         <Typography fontWeight={700}>{product.title}</Typography>
         <Typography fontWeight={500}>{`$${product.price}`}</Typography>
       </Box>
     </Grid>
   );
 };
+

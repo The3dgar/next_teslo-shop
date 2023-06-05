@@ -1,4 +1,4 @@
-import { SHOP_CONSTANTS, db } from '@/api/database';
+import { SHOP_CONSTANTS, db, dbProducts } from '@/api/database';
 import { ProductModel } from '@/api/models';
 import { IProducts } from '@/interfaces';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -33,14 +33,14 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       gender,
     };
   }
+  const products = await dbProducts.getAllProducts(condition)
+  // await db.connect();
 
-  await db.connect();
+  // const products = await ProductModel.find(condition)
+  //   .select('title images price slug inStock -_id')
+  //   .lean();
 
-  const products = await ProductModel.find(condition)
-    .select('title images price slug inStock -_id')
-    .lean();
-
-  await db.disconnect();
+  // await db.disconnect();
 
   res.status(200).json(products);
 };
