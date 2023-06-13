@@ -1,7 +1,7 @@
 import React from 'react';
 import { UiContext } from './UiContext';
 
-export const useUi = () => {
+export const useUiContext = () => {
   const context = React.useContext(UiContext);
 
   if (!context) {

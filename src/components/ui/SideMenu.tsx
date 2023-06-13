@@ -24,10 +24,10 @@ import MaleOutlined from '@mui/icons-material/MaleOutlined';
 import SearchOutlined from '@mui/icons-material/SearchOutlined';
 import VpnKeyOutlined from '@mui/icons-material/VpnKeyOutlined';
 
-import { useUi } from '@/context';
+import { useUiContext } from '@/context';
 
 export const SideMenu = () => {
-  const { isMenuOpen, toggleSideMenu } = useUi();
+  const { isMenuOpen, toggleSideMenu } = useUiContext();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
 

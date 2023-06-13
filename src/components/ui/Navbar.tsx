@@ -15,12 +15,14 @@ import SearchOutlined from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined';
 import ClearOutlined from '@mui/icons-material/ClearOutlined';
 
-import { useUi } from '@/context';
+import { useUiContext, useCartContext } from '@/context';
 import { PageLink } from './PageLink';
 
 export const Navbar = () => {
   const { asPath, push } = useRouter();
-  const { toggleSideMenu } = useUi();
+  const { toggleSideMenu } = useUiContext();
+  const { numberOfItems } = useCartContext();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
@@ -107,7 +109,9 @@ export const Navbar = () => {
 
         <PageLink href='/cart'>
           <IconButton>
-            <Badge badgeContent={2} color='secondary'>
+            <Badge
+              badgeContent={numberOfItems > 9 ? '+9' : numberOfItems}
+              color='secondary'>
               <ShoppingCartOutlined />
             </Badge>
           </IconButton>

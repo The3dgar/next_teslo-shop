@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   Link,
+  Chip,
 } from '@mui/material';
 
 interface Props {
@@ -38,6 +39,19 @@ export const ProductCard = ({ product }: Props) => {
           passHref
           prefetch={false}>
           <CardActionArea>
+            {!product.inStock && (
+              <Chip
+                color='primary'
+                label='No hay disponibles'
+                sx={{
+                  position: 'absolute',
+                  zIndex: 999,
+                  top: '10px',
+                  left: '10px',
+                }}
+              />
+            )}
+
             <CardMedia
               component='img'
               className='fadeIn'
@@ -58,4 +72,3 @@ export const ProductCard = ({ product }: Props) => {
     </Grid>
   );
 };
-
