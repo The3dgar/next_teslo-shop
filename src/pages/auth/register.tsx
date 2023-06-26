@@ -32,7 +32,6 @@ const RegisterPage = () => {
 
     const data = await registerUser(name, email, password);
     if (data.hasError) {
-      console.log('Error en las credenciales');
       setShowError(true);
       setTimeout(() => {
         setShowError(false);
@@ -40,8 +39,9 @@ const RegisterPage = () => {
 
       return;
     }
-    // todo: navegar a la pantalla anterior donde estaba o al home
-    router.replace('/');
+
+    const destination = router.query.p?.toString() || '/';
+    router.replace(destination);
   };
 
   return (

@@ -5,7 +5,8 @@ import axios from 'axios';
 import { AuthContext, authReducer } from './';
 import { IUser } from '@/interfaces';
 import { UserService } from '@/services';
-import { COOKIE_TOKEN_KEY } from '@/utils/constans';
+import { COOKIE_TOKEN_KEY, COOKIE_CART_KEY } from '@/utils/constans';
+import { useRouter } from 'next/router';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -23,6 +24,7 @@ interface Props {
 
 export const AuthProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(authReducer, Auth_INITIAL_STATE);
+  const router = useRouter();
 
   useEffect(() => {
     checkToken();
@@ -88,12 +90,20 @@ export const AuthProvider = ({ children }: Props) => {
     }
   };
 
+  const logout = () => {
+    Cookies.remove(COOKIE_TOKEN_KEY);
+    Cookies.remove(COOKIE_CART_KEY);
+
+    router.reload();
+  };
+
   return (
     <AuthContext.Provider
       value={{
         ...state,
         loginUser,
         registerUser,
+        logout
       }}>
       {children}
     </AuthContext.Provider>

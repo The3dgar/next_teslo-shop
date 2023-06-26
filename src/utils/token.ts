@@ -16,16 +16,16 @@ export const validateToken = (token = ''): Promise<string> => {
     throw new Error('SEED TOKEN its neccessary');
   }
 
-  return new Promise((res, rej) => {
+  return new Promise((resolve, reject) => {
     try {
       jwt.verify(token, process.env.TOKEN_SECRET_SEED!, (err, payload) => {
-        if (err) return rej('TOKEN INVALID');
+        if (err) return reject('TOKEN INVALID');
 
         const { _id } = payload as { _id : string};
-        res(_id);
+        resolve(_id);
       });
     } catch (error) {
-      rej('TOKEN INVALID');
+      reject('TOKEN INVALID');
     }
   });
 };

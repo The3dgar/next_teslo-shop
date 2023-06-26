@@ -1,23 +1,42 @@
 import { useEffect, useReducer } from 'react';
-import { CartContext, cartReducer } from './';
-import { ICartProduct } from '@/interfaces';
 import Cookie from 'js-cookie';
+
+import { CartContext, cartReducer } from './';
+import { ICartProduct, ShippingAddress } from '@/interfaces';
 import { Constans } from '@/utils';
+import { COOKIE_ADDRESS_KEY, COOKIE_CART_KEY } from '@/utils/constans';
+
+// todo: mover esto
 
 export interface CartState {
+  isLoaded: boolean;
   cart: ICartProduct[];
   numberOfItems: number;
   subTotal: number;
   taxRate: number;
   total: number;
+  shippingAddress: ShippingAddress;
 }
 
+const defaultShippingAddress = {
+  firstName: '',
+  lastName: '',
+  address: '',
+  address2: '',
+  zip: '',
+  city: '',
+  country: 'ARG',
+  phone: '',
+};
+
 const CART_INITIAL_STATE: CartState = {
+  isLoaded: false,
   cart: [],
   numberOfItems: 0,
   subTotal: 0,
   taxRate: 0,
   total: 0,
+  shippingAddress: defaultShippingAddress,
 };
 
 interface Props {
@@ -28,8 +47,8 @@ export const CartProvider = ({ children }: Props) => {
 
   useEffect(() => {
     try {
-      const cookieProducts = Cookie.get('cart')
-        ? JSON.parse(Cookie.get('cart')!)
+      const cookieProducts = Cookie.get(COOKIE_CART_KEY)
+        ? JSON.parse(Cookie.get(COOKIE_CART_KEY)!)
         : [];
 
       dispatch({ type: 'Cart loadCart from cookies', payload: cookieProducts });
@@ -39,8 +58,19 @@ export const CartProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
+    if (!Cookie.get(COOKIE_ADDRESS_KEY)) return;
+
+    const shippingAddress = JSON.parse(Cookie.get(COOKIE_ADDRESS_KEY)!);
+
+    dispatch({
+      type: 'Cart loadAddress from cookies',
+      payload: shippingAddress,
+    });
+  }, []);
+
+  useEffect(() => {
     if (state.cart.length) {
-      Cookie.set('cart', JSON.stringify(state.cart));
+      Cookie.set(COOKIE_CART_KEY, JSON.stringify(state.cart));
     }
   }, [state.cart]);
 
@@ -106,8 +136,16 @@ export const CartProvider = ({ children }: Props) => {
   const updateCartQuantity = (product: ICartProduct) => {
     dispatch({ type: 'Cart updateQuantity', payload: product });
   };
+
   const removeCartProduct = (product: ICartProduct) => {
     dispatch({ type: 'Cart removeProduct', payload: product });
+  };
+
+  const updateShippingAddress = (payload: ShippingAddress) => {
+    Cookie.set(COOKIE_ADDRESS_KEY, JSON.stringify(payload));
+    // todo: guardar en base de datos
+
+    dispatch({ type: 'Cart updateAddress', payload });
   };
 
   return (
@@ -117,6 +155,7 @@ export const CartProvider = ({ children }: Props) => {
         addProduct,
         updateCartQuantity,
         removeCartProduct,
+        updateShippingAddress,
       }}>
       {children}
     </CartContext.Provider>
