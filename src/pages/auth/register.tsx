@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { GetServerSideProps } from 'next';
+import { getSession, signIn } from 'next-auth/react';
 
-import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import {
+  Box,
+  Button,
+  Chip,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { ErrorOutline } from '@mui/icons-material';
 
 import { AuthLayout } from '@/components/layout';
@@ -40,8 +49,7 @@ const RegisterPage = () => {
       return;
     }
 
-    const destination = router.query.p?.toString() || '/';
-    router.replace(destination);
+    await signIn('credentials', { email, password });
   };
 
   return (
@@ -119,7 +127,13 @@ const RegisterPage = () => {
               </Button>
             </Grid>
             <Grid item xs={12} display={'flex'} justifyContent={'end'}>
-              <PageLink href='/auth/login' underline='always'>
+              <PageLink
+                href={
+                  router.query.p
+                    ? `/auth/login?p=${router.query.p}`
+                    : '/auth/login'
+                }
+                underline='always'>
                 ¿Ya tienes cuenta?
               </PageLink>
             </Grid>
@@ -128,6 +142,24 @@ const RegisterPage = () => {
       </form>
     </AuthLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession({ req: ctx.req });
+
+  const { p = '/' } = ctx.query;
+  if (session) {
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default RegisterPage;

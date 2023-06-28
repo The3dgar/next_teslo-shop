@@ -1,12 +1,13 @@
 import { useEffect, useReducer } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import { AuthContext, authReducer } from './';
-import { IUser } from '@/interfaces';
+import { IUser, IUserByOauth } from '@/interfaces';
 import { UserService } from '@/services';
-import { COOKIE_TOKEN_KEY, COOKIE_CART_KEY } from '@/utils/constans';
-import { useRouter } from 'next/router';
+
+import { COOKIE_TOKEN_KEY, COOKIE_CART_KEY, COOKIE_ADDRESS_KEY } from '@/utils/constans';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -24,11 +25,29 @@ interface Props {
 
 export const AuthProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(authReducer, Auth_INITIAL_STATE);
-  const router = useRouter();
+
+  const { data, status } = useSession();
 
   useEffect(() => {
-    checkToken();
-  }, []);
+    if (status === 'authenticated') {
+      console.log("user", data.user)
+      const user = data.user as IUserByOauth;
+
+      dispatch({
+        type: 'Auth login',
+        payload: {
+          _id: user.id,
+          email: user.email,
+          role: user.role,
+          name: user.name,
+        },
+      });
+    }
+  }, [status, data]);
+
+  // useEffect(() => {
+  //   checkToken();
+  // }, []);
 
   const checkToken = async () => {
     const currentToken = Cookies.get(COOKIE_TOKEN_KEY);
@@ -93,8 +112,8 @@ export const AuthProvider = ({ children }: Props) => {
   const logout = () => {
     Cookies.remove(COOKIE_TOKEN_KEY);
     Cookies.remove(COOKIE_CART_KEY);
-
-    router.reload();
+    Cookies.remove(COOKIE_ADDRESS_KEY)
+    signOut()
   };
 
   return (
@@ -103,7 +122,7 @@ export const AuthProvider = ({ children }: Props) => {
         ...state,
         loginUser,
         registerUser,
-        logout
+        logout,
       }}>
       {children}
     </AuthContext.Provider>

@@ -33,16 +33,12 @@ export default function handler(
 
 async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
   const { email = '', password = '' } = req.body;
-  const user = await dbUser.getUserByEmail(email);
+
+  const user = await dbUser.verifyUser(email, password);
+
   if (!user) {
     return res.status(400).json({
       message: 'Credenciales invalidas',
-    });
-  }
-
-  if (!bcrypt.compareSync(password, user.password!)) {
-    return res.status(400).json({
-       message: 'Credenciales invalidas',
     });
   }
 

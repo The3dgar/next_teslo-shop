@@ -12,6 +12,8 @@ import { CartList, OrderSummary } from '@/components/cart';
 import { PageLink } from '@/components/ui';
 import { useCartContext } from '@/context';
 import { countries } from '@/utils';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const SummaryPage = () => {
   const { shippingAddress, numberOfItems } = useCartContext();
@@ -26,6 +28,13 @@ const SummaryPage = () => {
     zip,
     address2 = '',
   } = shippingAddress;
+
+  const router = useRouter();
+  useEffect(() => {
+    if (!firstName) {
+      router.push('/checkout/address');
+    }
+  }, [router, firstName]);
 
   return (
     <ShopLayout title='Resumen de compra' pageDescription='Resumen de la orden'>
