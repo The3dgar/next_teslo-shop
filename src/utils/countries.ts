@@ -84,3 +84,7 @@ export const countries = [
     code: 'VEN',
   },
 ];
+
+export const getCountryById = (id: string) => {
+  return countries.find((c) => c.code === id);
+};

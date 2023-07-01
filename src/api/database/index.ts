@@ -6,3 +6,4 @@ export * from './contanst'
 
 export * as dbProducts from './dbProducts'
 export * as dbUser from './dbUsers'
+export * as dbOrder from './dbOrders'

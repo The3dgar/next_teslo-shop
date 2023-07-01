@@ -3,6 +3,16 @@ import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { dbUser } from '@/api/database';
 
+declare module 'next-auth' {
+  interface Session {
+    accessToken?: string;
+    user?: {
+      _id: string;
+      id: string;
+    };
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -29,6 +39,7 @@ export const authOptions: NextAuthOptions = {
         if (!user) return null;
 
         return {
+          _id: user._id,
           id: user._id,
           email: user.email,
           name: user.name,

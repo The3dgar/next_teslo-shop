@@ -1,8 +1,7 @@
 import { IProducts } from '@/interfaces';
 import { db } from '.';
 import { ProductModel } from '../models';
-
-export const parseJson = (obj = {}) => JSON.parse(JSON.stringify(obj));
+import { parseJson } from '@/utils';
 
 export const getProductBySlug = async (
   slug: string
@@ -55,4 +54,16 @@ export const getAllProducts = async (condition = {}): Promise<IProducts[]> => {
   await db.disconnect();
 
   return parseJson(products);
+};
+
+export const getProductsByIds = async (
+  productsIds: string[]
+): Promise<IProducts[]> => {
+  await db.connect();
+  const products = await ProductModel.find({
+    _id: { $in: productsIds },
+  }).lean();
+  await db.disconnect();
+
+  return parseJson(products)
 };

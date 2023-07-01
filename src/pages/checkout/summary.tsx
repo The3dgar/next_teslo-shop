@@ -6,6 +6,7 @@ import {
   CardContent,
   Divider,
   Button,
+  Chip,
 } from '@mui/material';
 import { ShopLayout } from '@/components/layout';
 import { CartList, OrderSummary } from '@/components/cart';
@@ -13,10 +14,14 @@ import { PageLink } from '@/components/ui';
 import { useCartContext } from '@/context';
 import { countries } from '@/utils';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ErrorOutline } from '@mui/icons-material';
 
 const SummaryPage = () => {
-  const { shippingAddress, numberOfItems } = useCartContext();
+  const router = useRouter();
+  const { shippingAddress, numberOfItems, createOrder } = useCartContext();
+  const [isPosting, setIsPosting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const {
     address,
@@ -29,12 +34,24 @@ const SummaryPage = () => {
     address2 = '',
   } = shippingAddress;
 
-  const router = useRouter();
   useEffect(() => {
     if (!firstName) {
       router.push('/checkout/address');
     }
   }, [router, firstName]);
+
+  const onCreateOrder = async () => {
+    setIsPosting(true);
+    const { hasError, message } = await createOrder();
+
+    if (hasError) {
+      setIsPosting(false);
+      setErrorMessage(message);
+      return;
+    }
+
+    router.replace(`/orders/${message}`);
+  };
 
   return (
     <ShopLayout title='Resumen de compra' pageDescription='Resumen de la orden'>
@@ -85,10 +102,24 @@ const SummaryPage = () => {
 
               <OrderSummary />
 
-              <Box sx={{ mt: 3 }}>
-                <Button color='secondary' className='circular-btn' fullWidth>
+              <Box sx={{ mt: 3 }} display={'flex'} flexDirection={'column'}>
+                <Button
+                  disabled={isPosting}
+                  type='submit'
+                  onClick={onCreateOrder}
+                  color='secondary'
+                  className='circular-btn'
+                  fullWidth>
                   Confirmar Orden
                 </Button>
+
+                <Chip
+                  label='Error'
+                  color='error'
+                  className='fadeIn'
+                  sx={{ display: errorMessage ? 'flex' : 'none', mt: 2 }}
+                  icon={<ErrorOutline />}
+                />
               </Box>
             </CardContent>
           </Card>

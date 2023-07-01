@@ -9,11 +9,4 @@ export interface IUser {
   updatedAt?: string;
 }
 
-export interface IUserByOauth {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
 export type UserRole = 'client' | 'admin';

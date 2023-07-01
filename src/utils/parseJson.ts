@@ -1,0 +1,1 @@
+export const parseJson = (obj = {}) => JSON.parse(JSON.stringify(obj));

@@ -1,25 +1,15 @@
-import { ValidTypes } from './Products';
 import { ValidSizes } from './Products';
 
 export interface ICartProduct {
   _id: string;
-  images: string;
+  image: string;
   price: number;
   size?: ValidSizes;
   slug: string;
   tags: string[];
   title: string;
-  gender: 'men' | 'women' | 'kid' | 'unisex';
+  gender: ValidGender;
   quantity: number;
 }
 
-export interface ShippingAddress {
-  firstName: string;
-  lastName: string;
-  address: string;
-  address2?: string;
-  zip: string;
-  city: string;
-  country: string;
-  phone: string;
-}
+export type ValidGender = 'men' | 'women' | 'kid' | 'unisex';

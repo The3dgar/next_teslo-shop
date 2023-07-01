@@ -17,7 +17,8 @@ type CartActionType =
       type: 'Cart updateOrderSummary';
       payload: SummaryProps;
     }
-  | { type: 'Cart updateQuantity'; payload: ICartProduct };
+  | { type: 'Cart updateQuantity'; payload: ICartProduct }
+  | { type: 'Cart order complete' };
 
 export const cartReducer = (
   state: CartState,
@@ -62,6 +63,15 @@ export const cartReducer = (
       return {
         ...state,
         shippingAddress: action.payload,
+      };
+    case 'Cart order complete':
+      return {
+        ...state,
+        cart: [],
+        numberOfItems: 0,
+        subTotal: 0,
+        taxRate: 0,
+        total: 0,
       };
 
     default:

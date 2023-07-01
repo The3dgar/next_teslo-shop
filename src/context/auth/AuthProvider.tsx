@@ -4,10 +4,14 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import { AuthContext, authReducer } from './';
-import { IUser, IUserByOauth } from '@/interfaces';
+import { IUser } from '@/interfaces';
 import { UserService } from '@/services';
 
-import { COOKIE_TOKEN_KEY, COOKIE_CART_KEY, COOKIE_ADDRESS_KEY } from '@/utils/constans';
+import {
+  COOKIE_TOKEN_KEY,
+  COOKIE_CART_KEY,
+  COOKIE_ADDRESS_KEY,
+} from '@/utils/constans';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -30,17 +34,10 @@ export const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      console.log("user", data.user)
-      const user = data.user as IUserByOauth;
-
+      const payload = data.user as unknown as IUser;
       dispatch({
         type: 'Auth login',
-        payload: {
-          _id: user.id,
-          email: user.email,
-          role: user.role,
-          name: user.name,
-        },
+        payload,
       });
     }
   }, [status, data]);
@@ -112,8 +109,10 @@ export const AuthProvider = ({ children }: Props) => {
   const logout = () => {
     Cookies.remove(COOKIE_TOKEN_KEY);
     Cookies.remove(COOKIE_CART_KEY);
-    Cookies.remove(COOKIE_ADDRESS_KEY)
-    signOut()
+    Cookies.remove(COOKIE_ADDRESS_KEY);
+    signOut({
+      callbackUrl: '/',
+    });
   };
 
   return (

@@ -10,14 +10,15 @@ import {
 } from '@mui/material';
 import { ItemCounter } from '../ui';
 import { useCartContext } from '@/context';
-import { ICartProduct } from '@/interfaces';
+import { ICartProduct, IOrderItem } from '@/interfaces';
 import { Constans } from '@/utils';
 
 interface Props {
   editable?: boolean;
+  products?: IOrderItem[];
 }
 
-export const CartList = ({ editable = false }: Props) => {
+export const CartList = ({ editable = false, products }: Props) => {
   const { cart, updateCartQuantity, removeCartProduct } = useCartContext();
 
   const onNewCartQuantity = (product: ICartProduct, quantity: number) => {
@@ -29,9 +30,11 @@ export const CartList = ({ editable = false }: Props) => {
     removeCartProduct(product);
   };
 
+  const productsToShow = products ? products : cart;
+
   return (
     <>
-      {cart.map((p) => (
+      {productsToShow.map((p) => (
         <Grid container key={p.slug + p.size} spacing={2} sx={{ mb: 1 }}>
           <Grid item xs={3}>
             <Link
@@ -41,7 +44,7 @@ export const CartList = ({ editable = false }: Props) => {
               underline='none'>
               <CardActionArea>
                 <CardMedia
-                  image={`/products/${p.images}`}
+                  image={`/products/${p.image}`}
                   component={'img'}
                   sx={{ borderRadius: '5px' }}
                 />
@@ -59,7 +62,7 @@ export const CartList = ({ editable = false }: Props) => {
                   currentValue={p.quantity}
                   maxValue={Constans.CART_MAX_VALUE}
                   updateQuantity={(quantity) => {
-                    onNewCartQuantity(p, quantity);
+                    onNewCartQuantity(p as ICartProduct, quantity);
                   }}
                 />
               ) : (
@@ -75,7 +78,7 @@ export const CartList = ({ editable = false }: Props) => {
               <Button
                 variant='text'
                 color='secondary'
-                onClick={() => onRemoveProduct(p)}>
+                onClick={() => onRemoveProduct(p as ICartProduct)}>
                 Remover
               </Button>
             )}
