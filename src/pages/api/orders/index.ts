@@ -12,7 +12,7 @@ type Data =
     }
   | IOrder;
 
-export default function handlerProducts(
+export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
@@ -63,10 +63,12 @@ const create = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
 
     // todo bien hasta este punto
+
     const userId = session.user?._id;
 
     const order = await dbOrder.createOrder({
       ...req.body,
+      total: Math.round(total * 100) / 100,
       isPaid: false,
       user: userId,
     });

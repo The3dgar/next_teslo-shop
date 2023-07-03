@@ -39,3 +39,21 @@ export const getOrdersByUser = async (
 
   return parseJson(order);
 };
+
+export const setOrderAsPaid = async (id: string, transactionId: string) => {
+  if (!isValidObjectId(id)) return null;
+  await db.connect();
+
+  const updatedOrder = await OrderModel.findOneAndUpdate(
+    { _id: id },
+    { transactionId, isPaid: true },
+    {
+      new: true,
+    }
+  ).lean();
+
+  await db.disconnect();
+  if (!updatedOrder) return null;
+
+  return parseJson(updatedOrder);
+};

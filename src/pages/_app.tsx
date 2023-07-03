@@ -7,6 +7,8 @@ import { SWRConfig } from 'swr';
 
 import { lightTheme } from '@/themes';
 import { AuthProvider, CartProvider, UiProvider } from '@/context';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { Constans } from '@/utils';
 
 export default function App({
   Component,
@@ -14,22 +16,27 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider>
-      <SWRConfig
-        value={{
-          fetcher: (resource, init) =>
-            fetch(resource, init).then((res) => res.json()),
+      <PayPalScriptProvider
+        options={{
+          clientId: Constans.PAYMENT_PAYPAL_CLIENT,
         }}>
-        <AuthProvider>
-          <CartProvider>
-            <UiProvider>
-              <ThemeProvider theme={lightTheme}>
-                <CssBaseline />
-                <Component {...pageProps} />
-              </ThemeProvider>
-            </UiProvider>
-          </CartProvider>
-        </AuthProvider>
-      </SWRConfig>
+        <SWRConfig
+          value={{
+            fetcher: (resource, init) =>
+              fetch(resource, init).then((res) => res.json()),
+          }}>
+          <AuthProvider>
+            <CartProvider>
+              <UiProvider>
+                <ThemeProvider theme={lightTheme}>
+                  <CssBaseline />
+                  <Component {...pageProps} />
+                </ThemeProvider>
+              </UiProvider>
+            </CartProvider>
+          </AuthProvider>
+        </SWRConfig>
+      </PayPalScriptProvider>
     </SessionProvider>
   );
 }

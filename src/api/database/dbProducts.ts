@@ -2,6 +2,7 @@ import { IProducts } from '@/interfaces';
 import { db } from '.';
 import { ProductModel } from '../models';
 import { parseJson } from '@/utils';
+import { FilterQuery } from 'mongoose';
 
 export const getProductBySlug = async (
   slug: string
@@ -44,7 +45,9 @@ export const getProductsByTerm = async (term: string): Promise<IProducts[]> => {
   return parseJson(products);
 };
 
-export const getAllProducts = async (condition = {}): Promise<IProducts[]> => {
+export const getAllProducts = async (
+  condition: FilterQuery<IProducts>
+): Promise<IProducts[]> => {
   await db.connect();
 
   const products = await ProductModel.find(condition)
@@ -65,5 +68,5 @@ export const getProductsByIds = async (
   }).lean();
   await db.disconnect();
 
-  return parseJson(products)
+  return parseJson(products);
 };
