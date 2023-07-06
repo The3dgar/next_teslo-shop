@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn } from 'next-auth/react';
-
 import { useForm } from 'react-hook-form';
+
+import { useAuthContext } from '@/context';
+import { Validations } from '@/utils';
+import { AuthLayout } from '@/components/layout';
 import {
   Box,
   Button,
@@ -11,13 +14,9 @@ import {
   Grid,
   TextField,
   Typography,
-} from '@mui/material';
-import { ErrorOutline } from '@mui/icons-material';
-
-import { AuthLayout } from '@/components/layout';
-import { PageLink } from '@/components/ui';
-import { Validations } from '@/utils';
-import { useAuthContext } from '@/context';
+  ErrorOutline,
+  PageLink,
+} from '@/components/ui';
 
 type FormData = {
   email: string;

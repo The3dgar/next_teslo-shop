@@ -1,5 +1,5 @@
 import { ValidSizes } from '@/interfaces';
-import { Button, Box } from '@mui/material';
+import { Button, Box } from '../ui';
 import React from 'react';
 
 interface Props {

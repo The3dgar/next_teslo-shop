@@ -1,4 +1,9 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import { useCartContext } from '@/context';
+import { ShopLayout } from '@/components/layout';
+import { CartList, OrderSummary } from '@/components/cart';
 import {
   Box,
   Typography,
@@ -7,11 +12,7 @@ import {
   CardContent,
   Divider,
   Button,
-} from '@mui/material';
-import { ShopLayout } from '@/components/layout';
-import { CartList, OrderSummary } from '@/components/cart';
-import { useCartContext } from '@/context';
-import { useRouter } from 'next/router';
+} from '@/components/ui';
 
 const CartPage = () => {
   const { isLoaded, cart } = useCartContext();

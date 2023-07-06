@@ -1,0 +1,19 @@
+export { default as SearchOutlined } from '@mui/icons-material/SearchOutlined';
+export { default as ShoppingCartOutlined } from '@mui/icons-material/ShoppingCartOutlined';
+export { default as ClearOutlined } from '@mui/icons-material/ClearOutlined';
+export { default as AccountCircleOutlined } from '@mui/icons-material/AccountCircleOutlined';
+export { default as AdminPanelSettings } from '@mui/icons-material/AdminPanelSettings';
+export { default as CategoryOutlined } from '@mui/icons-material/CategoryOutlined';
+export { default as ConfirmationNumberOutlined } from '@mui/icons-material/ConfirmationNumberOutlined';
+export { default as EscalatorWarningOutlined } from '@mui/icons-material/EscalatorWarningOutlined';
+export { default as FemaleOutlined } from '@mui/icons-material/FemaleOutlined';
+export { default as LoginOutlined } from '@mui/icons-material/LoginOutlined';
+export { default as MaleOutlined } from '@mui/icons-material/MaleOutlined';
+export { default as VpnKeyOutlined } from '@mui/icons-material/VpnKeyOutlined';
+
+export { default as CreditCardOffOutlined } from '@mui/icons-material/CreditCardOffOutlined';
+export { default as CreditScoreOutlined } from '@mui/icons-material/CreditScoreOutlined';
+export { default as ErrorOutline } from '@mui/icons-material/ErrorOutline';
+export { default as RemoveShoppingCartOutlined } from '@mui/icons-material/RemoveShoppingCartOutlined';
+export { default as AddCircleOutline } from '@mui/icons-material/AddCircleOutline';
+export { default as RemoveCircleOutline } from '@mui/icons-material/RemoveCircleOutline';

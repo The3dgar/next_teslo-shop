@@ -1,6 +1,6 @@
 import {
   Grid
-} from '@mui/material';
+} from '../ui';
 import { IProducts } from '@/interfaces';
 import { ProductCard } from '.';
 

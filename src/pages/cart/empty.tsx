@@ -1,8 +1,13 @@
 import React from 'react';
-import { Box, Typography, Link } from '@mui/material';
 import NextLink from 'next/link';
+
 import { ShopLayout } from '@/components/layout';
-import { RemoveShoppingCartOutlined } from '@mui/icons-material';
+import {
+  Box,
+  Typography,
+  Link,
+  RemoveShoppingCartOutlined,
+} from '@/components/ui';
 
 const EmptyPage = () => {
   return (

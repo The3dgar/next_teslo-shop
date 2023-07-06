@@ -4,7 +4,16 @@ import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 
+import { dbOrder } from '@/api/database';
+import { IOrder } from '@/interfaces';
+import { getCountryById } from '@/utils';
+import { OrderService } from '@/services';
+
+import { ShopLayout } from '@/components/layout';
+import { CartList, OrderSummary } from '@/components/cart';
 import {
+  CreditCardOffOutlined,
+  CreditScoreOutlined,
   Box,
   Typography,
   Grid,
@@ -13,19 +22,8 @@ import {
   Divider,
   Chip,
   CircularProgress,
-} from '@mui/material';
-import {
-  CreditCardOffOutlined,
-  CreditScoreOutlined,
-} from '@mui/icons-material';
-
-import { ShopLayout } from '@/components/layout';
-import { CartList, OrderSummary } from '@/components/cart';
-import { PageLink } from '@/components/ui';
-import { dbOrder } from '@/api/database';
-import { IOrder } from '@/interfaces';
-import { getCountryById } from '@/utils';
-import { OrderService } from '@/services';
+  PageLink,
+} from '@/components/ui';
 
 interface Props {
   order: IOrder;

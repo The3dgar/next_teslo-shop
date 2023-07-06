@@ -9,8 +9,10 @@ import {
   ClientSafeProvider,
 } from 'next-auth/react';
 import { BuiltInProviderType } from 'next-auth/providers';
-
 import { useForm } from 'react-hook-form';
+
+import { Validations } from '@/utils';
+import { AuthLayout } from '@/components/layout';
 import {
   Box,
   Button,
@@ -19,12 +21,9 @@ import {
   Grid,
   TextField,
   Typography,
-} from '@mui/material';
-import { ErrorOutline } from '@mui/icons-material';
-
-import { AuthLayout } from '@/components/layout';
-import { PageLink } from '@/components/ui';
-import { Validations } from '@/utils';
+  ErrorOutline,
+  PageLink,
+} from '@/components/ui';
 
 type FormData = {
   email: string;

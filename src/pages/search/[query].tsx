@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next';
-import { Box, Typography } from '@mui/material';
 
 import { dbProducts } from '@/api/database';
 import { IProducts } from '@/interfaces';
 
 import { ShopLayout } from '@/components/layout';
 import { ProductList } from '@/components/products';
+import { Box, Typography } from '@/components/ui';
 
 interface Props {
   products: IProducts[];

@@ -1,8 +1,8 @@
-import { Typography } from '@mui/material';
+import { useProducts } from '@/hooks';
+
 import { ShopLayout } from '@/components/layout';
 import { ProductList } from '@/components/products';
-import { useProducts } from '@/hooks';
-import { FullScreenLoading } from '@/components/ui';
+import { FullScreenLoading, Typography } from '@/components/ui';
 
 export default function Home() {
   const { isError, products, isLoading } = useProducts('/products');

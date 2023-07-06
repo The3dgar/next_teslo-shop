@@ -1,9 +1,9 @@
+import React from 'react'
+
+import { useProducts } from '@/hooks';
 import { ShopLayout } from '@/components/layout'
 import { ProductList } from '@/components/products';
-import { FullScreenLoading } from '@/components/ui';
-import { useProducts } from '@/hooks';
-import { Typography } from '@mui/material'
-import React from 'react'
+import { FullScreenLoading, Typography } from '@/components/ui';
 
 const KidPage = () => {
   const { isError, products, isLoading } = useProducts('/products?gender=kid');

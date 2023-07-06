@@ -1,12 +1,14 @@
-import { ShopLayout } from '@/components/layout'
-import { ProductList } from '@/components/products';
-import { FullScreenLoading } from '@/components/ui';
+import React from 'react';
+
 import { useProducts } from '@/hooks';
-import { Typography } from '@mui/material'
-import React from 'react'
+import { ShopLayout } from '@/components/layout';
+import { ProductList } from '@/components/products';
+import { FullScreenLoading, Typography } from '@/components/ui';
 
 const WomenPage = () => {
-  const { isError, products, isLoading } = useProducts('/products?gender=women');
+  const { isError, products, isLoading } = useProducts(
+    '/products?gender=women'
+  );
 
   if (isError) return <div>failed to load</div>;
   return (
@@ -22,7 +24,7 @@ const WomenPage = () => {
 
       {isLoading ? <FullScreenLoading /> : <ProductList products={products} />}
     </ShopLayout>
-  )
-}
+  );
+};
 
-export default WomenPage
+export default WomenPage;

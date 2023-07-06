@@ -2,6 +2,9 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
 
+import { useCartContext } from '@/context';
+import { ShopLayout } from '@/components/layout';
+import { countries, Constans } from '@/utils';
 import {
   Box,
   Typography,
@@ -10,11 +13,7 @@ import {
   TextField,
   FormControl,
   MenuItem,
-} from '@mui/material';
-import { ShopLayout } from '@/components/layout';
-import { countries } from '@/utils';
-import { COOKIE_ADDRESS_KEY } from '@/utils/constans';
-import { useCartContext } from '@/context';
+} from '@/components/ui';
 
 type FormData = {
   firstName: string;
@@ -45,8 +44,8 @@ const AddresPage = () => {
   const { updateShippingAddress } = useCartContext();
 
   const getAddressFromCookies = () => {
-    const address = Cookies.get(COOKIE_ADDRESS_KEY)
-      ? JSON.parse(Cookies.get(COOKIE_ADDRESS_KEY)!)
+    const address = Cookies.get(Constans.COOKIE_ADDRESS_KEY)
+      ? JSON.parse(Cookies.get(Constans.COOKIE_ADDRESS_KEY)!)
       : defaultShippingAddress;
 
     return address as FormData;

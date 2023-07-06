@@ -1,13 +1,12 @@
 import '@/styles/globals.css';
-import { SessionProvider } from 'next-auth/react';
-
-import { ThemeProvider, CssBaseline } from '@mui/material';
 import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 import { SWRConfig } from 'swr';
-
-import { lightTheme } from '@/themes';
-import { AuthProvider, CartProvider, UiProvider } from '@/context';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+
+import { AuthProvider, CartProvider, UiProvider } from '@/context';
+import { lightTheme } from '@/themes';
 import { Constans } from '@/utils';
 
 export default function App({

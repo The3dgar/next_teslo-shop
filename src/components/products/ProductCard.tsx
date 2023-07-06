@@ -10,7 +10,7 @@ import {
   Typography,
   Link,
   Chip,
-} from '@mui/material';
+} from '../ui';
 
 interface Props {
   product: IProducts;

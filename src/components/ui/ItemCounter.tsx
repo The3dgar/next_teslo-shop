@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
-import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import { Box, IconButton, Typography } from './units';
+import { AddCircleOutline, RemoveCircleOutline } from './icons';
 
 interface Props {
   currentValue: number;

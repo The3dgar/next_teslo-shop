@@ -1,4 +1,8 @@
 import NextLink from 'next/link';
+
+import { ICartProduct, IOrderItem } from '@/interfaces';
+import { useCartContext } from '@/context';
+import { Constans } from '@/utils';
 import {
   Box,
   Typography,
@@ -7,11 +11,8 @@ import {
   Button,
   CardActionArea,
   CardMedia,
-} from '@mui/material';
-import { ItemCounter } from '../ui';
-import { useCartContext } from '@/context';
-import { ICartProduct, IOrderItem } from '@/interfaces';
-import { Constans } from '@/utils';
+  ItemCounter,
+} from '../ui';
 
 interface Props {
   editable?: boolean;

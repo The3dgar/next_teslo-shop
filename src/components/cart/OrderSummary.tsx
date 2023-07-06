@@ -1,6 +1,6 @@
-import { Typography, Grid } from '@mui/material';
 import { useCartContext } from '@/context';
 import { Constans, Currency } from '@/utils';
+import { Typography, Grid } from '../ui';
 
 interface Props {
   orderValues?: {

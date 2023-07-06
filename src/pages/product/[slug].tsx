@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { Grid, Button, Box, Typography, Chip } from '@mui/material';
 
-import { ShopLayout } from '@/components/layout';
 import { dbProducts } from '@/api/database';
-import { ProductSlideshow, SizeSelector } from '@/components/products';
-import { ItemCounter } from '@/components/ui';
-import { ICartProduct, IProducts, ValidSizes } from '@/interfaces';
 import { useCartContext } from '@/context';
+import { ICartProduct, IProducts, ValidSizes } from '@/interfaces';
+
+import { ProductSlideshow, SizeSelector } from '@/components/products';
+import { ShopLayout } from '@/components/layout';
+import { Grid, Button, Box, Typography, Chip, ItemCounter } from '@/components/ui';
 
 interface Props {
   product: IProducts;

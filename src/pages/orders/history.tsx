@@ -1,13 +1,11 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 
-import { Typography, Grid, Chip } from '@mui/material';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-
-import { ShopLayout } from '@/components/layout';
-import { PageLink } from '@/components/ui';
 import { dbOrder } from '@/api/database';
 import { IOrder } from '@/interfaces';
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { ShopLayout } from '@/components/layout';
+import { PageLink, Typography, Grid, Chip } from '@/components/ui';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 100 },

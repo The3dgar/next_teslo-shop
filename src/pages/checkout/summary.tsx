@@ -1,4 +1,12 @@
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { countries } from '@/utils';
+import { useCartContext } from '@/context';
+import { ShopLayout } from '@/components/layout';
+import { CartList, OrderSummary } from '@/components/cart';
 import {
+  PageLink,
   Box,
   Typography,
   Grid,
@@ -7,15 +15,8 @@ import {
   Divider,
   Button,
   Chip,
-} from '@mui/material';
-import { ShopLayout } from '@/components/layout';
-import { CartList, OrderSummary } from '@/components/cart';
-import { PageLink } from '@/components/ui';
-import { useCartContext } from '@/context';
-import { countries } from '@/utils';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { ErrorOutline } from '@mui/icons-material';
+  ErrorOutline,
+} from '@/components/ui';
 
 const SummaryPage = () => {
   const router = useRouter();
