@@ -1,14 +1,20 @@
-import { NextResponse, type NextRequest } from 'next/server';
-import { COOKIE_TOKEN_KEY, TOKEN_SECRET_SEED } from './utils/constans';
-import { jwtVerify } from 'jose';
-
+import { NextResponse, NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+import { validAdminRoles } from './utils/validUserRoles';
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith('/checkout')) {
     return checkoutMiddleware(req);
+  }
+
+  if (pathname.startsWith('/admin')) {
+    return adminMiddleware(req);
+  }
+
+  if (pathname.startsWith('/api/admin')) {
+    return apiAdminMiddleware(req);
   }
 }
 
@@ -40,6 +46,53 @@ const checkoutMiddleware = async (req: NextRequest) => {
   //   );
   // }
 };
+
+const adminMiddleware = async (req: NextRequest) => {
+  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  const requestedPage = req.nextUrl.pathname;
+
+  if (!session) {
+    const url = req.nextUrl.clone();
+    url.pathname = '/auth/login';
+    url.search = `p=${requestedPage}`;
+
+    return NextResponse.redirect(url);
+  }
+
+  if (!validAdminRoles.includes((session.user as any).role)) {
+    const url = req.nextUrl.clone();
+    url.pathname = '/';
+    return NextResponse.redirect(url);
+  }
+
+  return NextResponse.next();
+};
+
+const apiAdminMiddleware = async (req: NextRequest) => {
+  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!session) {
+    return new Response(JSON.stringify({ message: 'No autorizado' }), {
+      status: 401,
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+  }
+
+  if (!validAdminRoles.includes((session.user as any).role)) {
+    return new Response(JSON.stringify({ message: 'No autorizado' }), {
+      status: 401,
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+  }
+
+  return NextResponse.next();
+};
+
 export const config = {
-  matcher: ['/checkout/:path*'],
+  matcher: ['/checkout/:path*', '/admin/:path*', '/api/admin/:path*'],
 };

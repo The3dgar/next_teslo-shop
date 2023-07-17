@@ -1,6 +1,5 @@
 import { dbUser } from '@/api/database';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import bcrypt from 'bcryptjs';
 import { Token } from '@/utils';
 
 interface UserLogin {

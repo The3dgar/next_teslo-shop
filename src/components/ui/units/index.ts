@@ -29,3 +29,4 @@ export { default as ListSubheader } from '@mui/material/ListSubheader';
 export { default as TextField } from '@mui/material/TextField';
 export { default as FormControl } from '@mui/material/FormControl';
 export { default as MenuItem } from '@mui/material/MenuItem';
+export { default as Select } from '@mui/material/Select'

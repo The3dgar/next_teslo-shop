@@ -1,3 +1,4 @@
+import CategoryOutlined from '@mui/icons-material/CategoryOutlined';
 export { default as SearchOutlined } from '@mui/icons-material/SearchOutlined';
 export { default as ShoppingCartOutlined } from '@mui/icons-material/ShoppingCartOutlined';
 export { default as ClearOutlined } from '@mui/icons-material/ClearOutlined';
@@ -17,3 +18,11 @@ export { default as ErrorOutline } from '@mui/icons-material/ErrorOutline';
 export { default as RemoveShoppingCartOutlined } from '@mui/icons-material/RemoveShoppingCartOutlined';
 export { default as AddCircleOutline } from '@mui/icons-material/AddCircleOutline';
 export { default as RemoveCircleOutline } from '@mui/icons-material/RemoveCircleOutline';
+export { default as DashboardOutlined } from '@mui/icons-material/DashboardOutlined';
+export { default as AttachMoneyOutlined } from '@mui/icons-material/AttachMoneyOutlined';
+export { default as GroupOutlined } from '@mui/icons-material/GroupOutlined';
+export { default as CancelPresentationOutlined } from '@mui/icons-material/CancelPresentationOutlined';
+export { default as ProductionQuantityLimitsOutlined } from '@mui/icons-material/ProductionQuantityLimitsOutlined';
+export { default as AccessTimeOutlined } from '@mui/icons-material/AccessTimeOutlined';
+export { default as PeopleOutline } from '@mui/icons-material/PeopleOutline';
+export { default as AirplaneTicketOutlined } from '@mui/icons-material/AirplaneTicketOutlined';

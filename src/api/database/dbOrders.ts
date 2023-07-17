@@ -57,3 +57,23 @@ export const setOrderAsPaid = async (id: string, transactionId: string) => {
 
   return parseJson(updatedOrder);
 };
+
+export const generalStatus = async () => {
+  const [numberOfOrders, paidOrders] = await Promise.all([
+    OrderModel.count(),
+    OrderModel.find({ isPaid: true }).count(),
+  ]);
+
+  return {
+    numberOfOrders,
+    paidOrders,
+  };
+};
+
+export async function getAllOrders() {
+  const orders = await OrderModel.find()
+    .sort({ createAt: 'desc' })
+    .populate('user', 'name email')
+    .lean();
+  return orders;
+}

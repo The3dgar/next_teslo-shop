@@ -70,3 +70,18 @@ export const getProductsByIds = async (
 
   return parseJson(products);
 };
+
+export const generalStatus = async () => {
+  const [numberOfProducts, productsWithNoInventory, lowInventory] =
+    await Promise.all([
+      ProductModel.count(),
+      ProductModel.find({ inStock: 0 }).count(),
+      ProductModel.find({ inStock: { $lte: 10 } }).count(),
+    ]);
+
+  return {
+    numberOfProducts,
+    productsWithNoInventory,
+    lowInventory,
+  };
+};

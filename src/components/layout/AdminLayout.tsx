@@ -1,5 +1,7 @@
 import React from 'react';
-import { Navbar, SideMenu } from '../ui';
+import { Box, SideMenu, Typography } from '../ui';
+import { AdminNavar } from '../admin';
+import Head from 'next/head';
 
 interface Props {
   title: string;
@@ -11,7 +13,11 @@ interface Props {
 export const AdminLayout = ({ title, subTitle, icon, children }: Props) => {
   return (
     <>
-      <Navbar />
+      <Head>
+        <title>{title}</title>        
+        <meta name='og:title' content={title} />
+      </Head>
+      <AdminNavar />
 
       <SideMenu />
 
@@ -21,7 +27,17 @@ export const AdminLayout = ({ title, subTitle, icon, children }: Props) => {
           maxWidth: '1440px',
           padding: '0px 30px',
         }}>
-        {children}
+        <Box display={'flex'} flexDirection={'column'}>
+          <Typography variant='h1' component={'h1'}>
+            {icon} {title}
+          </Typography>
+
+          <Typography variant='h2' sx={{ mb: 1 }}>
+            {subTitle}
+          </Typography>
+        </Box>
+
+        <Box className='fadeIn'>{children}</Box>
       </main>
 
       <footer>{/* custom footer */}</footer>

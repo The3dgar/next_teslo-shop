@@ -1,7 +1,9 @@
+import bcrypt from 'bcryptjs';
+import { isValidObjectId } from 'mongoose';
+
 import { IUser, UserRole } from '@/interfaces';
 import { db } from '.';
 import { UserModel } from '../models';
-import bcrypt from 'bcryptjs';
 
 export const getUserByEmail = async (email = ''): Promise<IUser | null> => {
   await db.connect();
@@ -91,3 +93,28 @@ export const oAuthToDbUser = async (email: string, name: string) => {
     role: newUser.role,
   };
 };
+
+export const generalStatus = async () => {
+  const numberOfClients = await UserModel.find({ role: 'client' }).count();
+
+  return {
+    numberOfClients,
+  };
+};
+
+export async function getAllUsers() {
+  const users = await UserModel.find().select('-password').lean();
+  return users as IUser[];
+}
+
+export async function updateUserRole(userId: any, role: string) {
+  if (!isValidObjectId(userId)) return null;
+  const user = await UserModel.findById(userId);
+
+  if (!user) return null;
+
+  user.role = role;
+
+  await user.save();
+  return user;
+}

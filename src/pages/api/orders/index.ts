@@ -57,8 +57,7 @@ const create = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }, 0);
 
     const backendTotal = subTotal * (Constans.TAX_RATE + 1);
-
-    if (backendTotal !== total) {
+    if (Number(backendTotal.toFixed(3)) !== total) {
       throw new Error('Total is not equal');
     }
 

@@ -1,4 +1,5 @@
 import { IUser } from '@/interfaces';
+import { validUserRoles } from '@/utils';
 import mongoose, { Schema, model, Model } from 'mongoose';
 
 const UserSchema = new Schema(
@@ -19,10 +20,10 @@ const UserSchema = new Schema(
     role: {
       type: String,
       enum: {
-        values: ['admin', 'client'],
+        values: validUserRoles,
         message: '{VALUE} its not a valid role',
         default: 'client',
-        required: true
+        required: true,
       },
     },
   },
