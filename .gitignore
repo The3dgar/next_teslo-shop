@@ -2,6 +2,8 @@
 
 mongo/
 .env
+.env.development
+.env.production
 seed.ts
 # dependencies
 /node_modules
