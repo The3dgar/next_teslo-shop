@@ -1,4 +1,3 @@
-import CategoryOutlined from '@mui/icons-material/CategoryOutlined';
 export { default as SearchOutlined } from '@mui/icons-material/SearchOutlined';
 export { default as ShoppingCartOutlined } from '@mui/icons-material/ShoppingCartOutlined';
 export { default as ClearOutlined } from '@mui/icons-material/ClearOutlined';
@@ -26,3 +25,7 @@ export { default as ProductionQuantityLimitsOutlined } from '@mui/icons-material
 export { default as AccessTimeOutlined } from '@mui/icons-material/AccessTimeOutlined';
 export { default as PeopleOutline } from '@mui/icons-material/PeopleOutline';
 export { default as AirplaneTicketOutlined } from '@mui/icons-material/AirplaneTicketOutlined';
+
+export { default as DriveFileRenameOutline } from '@mui/icons-material/DriveFileRenameOutline';
+export { default as SaveOutlined } from '@mui/icons-material/SaveOutlined';
+export { default as UploadOutlined } from '@mui/icons-material/UploadOutlined';

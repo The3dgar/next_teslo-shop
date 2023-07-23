@@ -10,8 +10,6 @@ export const ProductSlideshow: FC<Props> = ({ images }) => {
   return (
     <Slide easing='ease' duration={7 * 1000} indicators>
       {images.map((img) => {
-        const url = `/products/${img}`;
-
         return (
           <div key={img}>
             <div
@@ -20,7 +18,7 @@ export const ProductSlideshow: FC<Props> = ({ images }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '400px',
-                backgroundImage: `url(${url})`,
+                backgroundImage: `url(${img})`,
                 backgroundSize: 'cover',
               }}
             />

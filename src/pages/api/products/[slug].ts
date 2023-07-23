@@ -1,4 +1,4 @@
-import { db } from '@/api/database';
+import { db, dbProducts } from '@/api/database';
 import { ProductModel } from '@/api/models';
 import { IProducts } from '@/interfaces';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -29,7 +29,7 @@ const getProductsBySlug = async (
   const { slug } = req.query;
   await db.connect();
 
-  const product = await ProductModel.findOne({ slug }).lean();
+  const product = await dbProducts.getProductBySlug(slug as string)
 
   await db.disconnect();
 

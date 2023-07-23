@@ -45,7 +45,7 @@ export const CartList = ({ editable = false, products }: Props) => {
               underline='none'>
               <CardActionArea>
                 <CardMedia
-                  image={`/products/${p.image}`}
+                  image={p.image}
                   component={'img'}
                   sx={{ borderRadius: '5px' }}
                 />

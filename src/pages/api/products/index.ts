@@ -34,13 +34,5 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     };
   }
   const products = await dbProducts.getAllProducts(condition)
-  // await db.connect();
-
-  // const products = await ProductModel.find(condition)
-  //   .select('title images price slug inStock -_id')
-  //   .lean();
-
-  // await db.disconnect();
-
   res.status(200).json(products);
 };

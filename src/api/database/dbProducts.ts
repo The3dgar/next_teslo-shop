@@ -4,6 +4,16 @@ import { ProductModel } from '../models';
 import { parseJson } from '@/utils';
 import { FilterQuery } from 'mongoose';
 
+const resetProductImages = (product: IProducts):IProducts => {
+  product.images = product.images.map((img) => {
+    return img.includes('http')
+      ? img
+      : `${process.env.HOST_NAME}products/${img}`;
+  });
+
+  return product;
+};
+
 export const getProductBySlug = async (
   slug: string
 ): Promise<IProducts | null> => {
@@ -15,7 +25,7 @@ export const getProductBySlug = async (
     return null;
   }
 
-  return parseJson(product);
+  return parseJson(resetProductImages(product));
 };
 
 interface ProductSlug {
@@ -42,7 +52,8 @@ export const getProductsByTerm = async (term: string): Promise<IProducts[]> => {
 
   await db.disconnect();
 
-  return parseJson(products);
+  const updateProducts = products.map( p => resetProductImages(p))
+  return parseJson(updateProducts);
 };
 
 export const getAllProducts = async (
@@ -56,7 +67,8 @@ export const getAllProducts = async (
 
   await db.disconnect();
 
-  return parseJson(products);
+  const updateProducts = products.map( p => resetProductImages(p))
+  return parseJson(updateProducts);
 };
 
 export const getProductsByIds = async (
@@ -85,3 +97,33 @@ export const generalStatus = async () => {
     lowInventory,
   };
 };
+
+export const getAllProductsForAdmin = async () => {
+  const products = await ProductModel.find().sort({ title: 'asc' }).lean();
+  const updateProducts = products.map( p => resetProductImages(p))
+  return parseJson(updateProducts);
+};
+
+export const getById = async (id: string) => {
+  const product = await ProductModel.findById(id);
+
+  return product;
+};
+
+export const updateProduct = async (product: IProducts) => {
+  const productUpdated = await ProductModel.findByIdAndUpdate(
+    product._id,
+    product,
+    {
+      new: true,
+    }
+  );
+
+  return productUpdated as IProducts;
+};
+
+export async function createProduct(body: IProducts) {
+  const product = new ProductModel(body);
+  await product.save();
+  return product as IProducts;
+}

@@ -43,6 +43,7 @@ const productSchema = new Schema(
       enum: {
         values: ['shirts', 'pants', 'hoodies', 'hats'],
         message: '{VALUE} no es un type permitido',
+        default: 'shirts',
       },
     },
     gender: {
@@ -50,6 +51,7 @@ const productSchema = new Schema(
       enum: {
         values: ['men', 'women', 'kid', 'unisex'],
         message: '{VALUE} no es un genero permitido',
+        default: 'women'
       },
     },
   },

@@ -45,7 +45,6 @@ const OrderPage = ({ order }: Props) => {
   const router = useRouter();
 
   const [isPayment, setIsPayment] = useState(false);
-
   const onOrderCompleted = async (details: OrderResponseBody) => {
     if (details.status !== 'COMPLETED') {
       return alert('No hay pago en Paypal');
