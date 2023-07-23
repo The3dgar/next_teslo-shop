@@ -2,13 +2,20 @@ import { useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import { dbProducts } from '@/api/database';
+import { db, dbProducts } from '@/api/database';
 import { useCartContext } from '@/context';
 import { ICartProduct, IProducts, ValidSizes } from '@/interfaces';
 
 import { ProductSlideshow, SizeSelector } from '@/components/products';
 import { ShopLayout } from '@/components/layout';
-import { Grid, Button, Box, Typography, Chip, ItemCounter } from '@/components/ui';
+import {
+  Grid,
+  Button,
+  Box,
+  Typography,
+  Chip,
+  ItemCounter,
+} from '@/components/ui';
 
 interface Props {
   product: IProducts;
@@ -172,7 +179,9 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 //- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  await db.connect();
   const product = await dbProducts.getProductBySlug(`${ctx.params?.slug}`);
+  await db.disconnect();
 
   if (!product) {
     return {

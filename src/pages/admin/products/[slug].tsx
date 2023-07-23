@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useForm } from 'react-hook-form';
 
-import { dbProducts } from '@/api/database';
+import { db, dbProducts } from '@/api/database';
 import { IProducts } from '@/interfaces';
 import { AdminLayout } from '@/components/layout';
 import {
@@ -435,7 +435,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     tempProduct.images = ['img1.jpg', 'img2.jpg'];
     product = tempProduct;
   } else {
+    await db.connect();
     product = await dbProducts.getProductBySlug(slug.toString());
+    await db.disconnect();
 
     if (!product) {
       return {

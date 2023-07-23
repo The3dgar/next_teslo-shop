@@ -17,9 +17,7 @@ const resetProductImages = (product: IProducts):IProducts => {
 export const getProductBySlug = async (
   slug: string
 ): Promise<IProducts | null> => {
-  await db.connect();
   const product = await ProductModel.findOne({ slug }).lean();
-  await db.disconnect();
 
   if (!product) {
     return null;
